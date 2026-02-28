@@ -1,6 +1,7 @@
 
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
-import AdminLogin from './components/AdminLogin';
+import AdminLogin from './pages/AdminLogin';
+import AdminDashboard from './pages/AdminDashboard';
 function App() {
  
 
@@ -10,6 +11,7 @@ function App() {
 
    <Routes>
     <Route path='/' element={<AdminLogin/>}></Route>
+    <Route path='/admin-dashboard' element={<AdminDashboard/>}></Route>
    </Routes>
 
 
