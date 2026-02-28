@@ -25,9 +25,10 @@ const AdminLogin = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password })
       })
-      const data = response.json()
+      const data = await response.json()
       if (!response.ok) {
-        throw new toast.error(data.message || "Login Failed")
+        toast.error(data.message || "Login Failed")
+        return
       }
       localStorage.setItem("accessToken", data.access)
       localStorage.setItem("refreshToken", data.refresh)

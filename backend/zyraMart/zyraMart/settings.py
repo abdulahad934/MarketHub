@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "payments",
     "corsheaders",
     "rest_framework",
+     "rest_framework_simplejwt",
 ]
 #cors
 CORS_ALLOW_ALL_ORIGINS = True
