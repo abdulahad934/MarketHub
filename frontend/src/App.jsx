@@ -10,7 +10,7 @@ function App() {
    
 
    <Routes>
-    <Route path='/' element={<AdminLogin/>}></Route>
+    <Route path='/admin-login' element={<AdminLogin/>}></Route>
     <Route path='/admin-dashboard' element={<AdminDashboard/>}></Route>
    </Routes>
 

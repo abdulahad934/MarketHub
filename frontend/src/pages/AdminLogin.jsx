@@ -41,6 +41,7 @@ const AdminLogin = () => {
 
   return (
     <div className="al-root">
+       <ToastContainer position="top-right" autoClose={2000} theme="dark" />
 
       {/* Left Branding Panel */}
       <div className="al-left">
