@@ -7,7 +7,7 @@ from django.db import models
 class Category(models.Model):
     name = models.CharField(max_length=100, unique=True)
     slug = models.CharField(max_length=120, unique=True, blank=True, null=True)
-    is_active = models.CharField(default=True)
+    is_active = models.BooleanField(default=True)
     created_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -33,7 +33,7 @@ class Brand(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=250)
     slug = models.CharField(max_length=300, blank=True, null=True)
-    description = models.CharField()
+    description = models.TextField()
     brand = models.ForeignKey(Brand, on_delete=models.SET_NULL, blank=True, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True)
     is_active = models.BooleanField(default=True)
