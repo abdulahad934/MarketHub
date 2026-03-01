@@ -16,15 +16,6 @@ const AddCategory = () => {
   const [loading, setLoading] = useState(false)
   const [slugLocked, setSlugLocked] = useState(false)
   const navigate = useNavigate()
-  
-  // ── Auth Guard ──────────────────────────────────────────────────────────────
-  useEffect(() => {
-    const token = localStorage.getItem('accessToken')
-    if (!token) {
-      toast.error('Please login first!')
-      navigate('/admin-login')
-    }
-  }, [navigate])
 
   // Auto-generate slug from name
   useEffect(() => {
@@ -60,11 +51,15 @@ const AddCategory = () => {
       setErrors(errs)
       return
     }
-    
+    const token = localStorage.getItem("accessToken")
+    console.log(localStorage.getItem("accessToken"))
+    if (!token) {
+      toast.error("Please login first")
+      navigate("/admin-login")
+      return
+    }
     setLoading(true)
     try {
-      
-      const token = localStorage.getItem('accessToken')
       const response = await fetch("http://127.0.0.1:8080/api/products/add-category/", {
         method: "POST",
         headers: {

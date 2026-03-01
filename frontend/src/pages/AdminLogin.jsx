@@ -16,6 +16,7 @@ const AdminLogin = () => {
     e.preventDefault()
     if (!username.trim() || !password.trim()) {
       toast.error("username and password must required!")
+      return
     }
 
     setLoading(true)
