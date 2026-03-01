@@ -4,6 +4,8 @@ from rest_framework.decorators import api_view, permission_classes, authenticati
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.permissions import IsAdminUser
+
 from rest_framework import status
 from .serializers import *
 
@@ -11,8 +13,9 @@ from .serializers import *
 
 
 class AddCategoryAPIView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsAdminUser]
     authentication_classes = [JWTAuthentication]
+    
     def post(self, request):
         serializer = AddCategorySerializer(data = request.data)
 
@@ -23,34 +26,37 @@ class AddCategoryAPIView(APIView):
                 "success": True,
                 "message": "Category Added Succefully!",
                 "data": serializer.data
-            }, status=200)
+            }, status=status.HTTP_201_CREATED)
         
         return Response({
             "success":False,
             "message": "Faild Added Category",
             "errors": serializer.errors
-        }, status=400)
+        }, status=status.HTTP_400_BAD_REQUEST)
 
 
 
-# @api_view(['POST'])
-# @authentication_classes([JWTAuthentication])
-# @permission_classes([IsAuthenticated])
-# def add_category(request):
-#     serializer = AddCategorySerializer(data= request.data)
+# Add Brand Api
+class AddBrandAPIView(APIView):
 
-#     if serializer.is_valid():
-#         serializer.save()
+    permission_classes = [IsAuthenticated, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
 
-#         return Response({
-#             "success": True,
-#             "message": "Add Category Successfully!",
-#             "data": serializer.data
-#         }, status=200)
-    
-#     return Response({
-#         "success": False,
-#         "message": "Faild add Category",
-#         "errors": serializer.errors
-#     }, status=400)
+    def post(self, request):
+        
+        serializer = AddBrandSerializer(data = request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+
+            return Response({
+                "success": True,
+                "message": "Brand Added Successfully!",
+                "data": serializer.data
+            }, status=status.HTTP_201_CREATED)
+        return Response({
+            "success": False,
+            "message": "Faild Added Brand",
+            "errors": serializer.errors
+        }, status=status.HTTP_400_BAD_REQUEST)
 
