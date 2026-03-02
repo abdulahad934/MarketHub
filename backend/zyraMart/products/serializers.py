@@ -100,12 +100,13 @@ class ProductImageSerializer(serializers.ModelSerializer):
 
 # Product serializer
 class ProductSerializer(serializers.ModelSerializer):
-    variants = ProductVariantsSerializer(many=True)
+    variants = ProductVariantsSerializer(many=True, required=False)
     images = ProductImageSerializer(many=True, required =False)
 
     class Meta:
         model = Product
         fields = '__all__'
+        
 
     def validate_slug(self, value):
         slug = value.strip()
@@ -121,7 +122,7 @@ class ProductSerializer(serializers.ModelSerializer):
     
     @transaction.atomic
     def create(self, validated_data):
-        variants_data = validated_data.pop('variants')
+        variants_data = validated_data.pop('variants', [])
         images_data = validated_data.pop('images', [])
 
         product = Product.objects.create(**validated_data)

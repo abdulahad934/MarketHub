@@ -61,15 +61,18 @@ class AddBrandAPIView(APIView):
             "errors": serializer.errors
         }, status=status.HTTP_400_BAD_REQUEST)
 
+from rest_framework.parsers import MultiPartParser, FormParser
 
 #product api create
 class AddProductAPIView(APIView):
     permission_classes = [IsAuthenticated, IsAdminUser]
     authentication_classes = [JWTAuthentication]
+    parser_classes = [MultiPartParser, FormParser]
+    
     @transaction.atomic
 
     def post(self, request):
-        serializer = ProductSerializer(data=request.data, context={'request': request})
+        serializer = ProductSerializer(data=request.data)
 
         if serializer.is_valid():
             serializer.save()
@@ -79,12 +82,13 @@ class AddProductAPIView(APIView):
                 "message": "Product added successfully!",
                 "product_id": serializer.instance.id
             }, status=status.HTTP_201_CREATED)
-        
+        print(serializer.errors)
         return Response({
             "success":False,
             "message": "faild added product",
             "errors": serializer.errors
-        }, status=status.HTTP_401_UNAUTHORIZED)
+        }, status=status.HTTP_400_BAD_REQUEST)
+        print(serializer.errors)
 
 
 # Category Get API

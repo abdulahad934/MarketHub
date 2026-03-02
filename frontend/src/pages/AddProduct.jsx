@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify'
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 import '../styles/addproduct.css'
 
 const generateSlug = (text) =>
@@ -29,6 +30,7 @@ const AddProduct = () => {
   // Auth guard
   useEffect(() => {
     const token = localStorage.getItem('accessToken')
+    console.log(localStorage.getItem('accessToken'))
     if (!token) {
       toast.error('Please Login first')
       navigate('/admin-login')
@@ -96,42 +98,49 @@ const AddProduct = () => {
 
   // ── handleSubmit
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    const errs = validate()
-    if (Object.keys(errs).length) { setErrors(errs); return }
+  e.preventDefault()
+  const errs = validate()
+  if (Object.keys(errs).length) { setErrors(errs); return }
 
-    setLoading(true)
-    try {
-      const token = localStorage.getItem('accessToken')
-      const formData = new FormData()
+  // ── convert variant price / discount / stock to numbers
+  const variants = form.variants.map(v => ({
+    ...v,
+    price: v.price ? parseFloat(v.price) : null,
+    discount_price: v.discount_price ? parseFloat(v.discount_price) : null,
+    stock: v.stock ? parseInt(v.stock) : 0
+  }))
 
-      formData.append('name', form.name)
-      formData.append('slug', form.slug)
-      formData.append('description', form.description)
-      formData.append('category', form.category)
-      formData.append('brand', form.brand)
-      formData.append('is_active', form.is_active)
-      formData.append('variants', JSON.stringify(form.variants))
-      form.images.forEach((image) => { formData.append('images', image) })
+  setLoading(true)
+  try {
+    const token = localStorage.getItem('accessToken')
+    const formData = new FormData()
+    formData.append('name', form.name)
+    formData.append('slug', form.slug)
+    formData.append('description', form.description)
+    formData.append('category', form.category)
+    formData.append('brand', form.brand)
+    formData.append('is_active', form.is_active)
 
-      const response = await fetch('http://127.0.0.1:8080/api/products/add-product/', {
-        method: 'POST',
-        headers: { 'Authorization': `Bearer ${token}` },
-        body: formData,
-      })
-      const data = await response.json()
-      if (!response.ok) {
-        throw new Error('Somthing went wrong')
-      }
-      toast.success(data.message || 'product added Successfully!')
-      setTimeout(() => navigate('/all-products'), 1500)
+    formData.append('variants', JSON.stringify(variants))
 
-    } catch (error) {
-      toast.error(error.message || 'Server Error')
-    } finally {
-      setLoading(false)
-    }
+    form.images.forEach((image) => formData.append('images', image))
+
+    const response = await fetch('http://127.0.0.1:8080/api/products/add-product/', {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${token}` },
+      body: formData,
+    })
+
+    const data = await response.json()
+    if (!response.ok) throw new Error('Something went wrong')
+    toast.success(data.message || 'Product added Successfully!')
+    setTimeout(() => navigate('/all-products'), 2000)
+  } catch (error) {
+    toast.error(error.message || 'Server Error')
+  } finally {
+    setLoading(false)
   }
+}
 
   return (
     <div className="ap-page">
@@ -363,7 +372,10 @@ const AddProduct = () => {
           </div>
         </div>
       </form>
-
+    <ToastContainer
+  position="top-center"
+  style={{ top: '50%', transform: 'translateY(-50%)' }}
+/>
     </div>
   )
 }

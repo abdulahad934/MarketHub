@@ -1,7 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Outfit:wght@300;400;500;600&display=swap');
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+.Toastify__toast-container {
+  z-index: 99999 !important;
+}
 :root {
   --primary: #ff6b35;
   --primary-dark: #e85520;
