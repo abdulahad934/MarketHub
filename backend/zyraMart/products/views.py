@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
+from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
@@ -63,10 +64,12 @@ class AddBrandAPIView(APIView):
 
 #product api create
 class AddProductAPIView(APIView):
+    permission_classes = [IsAuthenticated, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
     @transaction.atomic
 
     def post(self, request):
-        serializer = ProductSerializer(data = request.data)
+        serializer = ProductSerializer(data=request.data, context={'request': request})
 
         if serializer.is_valid():
             serializer.save()
@@ -74,7 +77,7 @@ class AddProductAPIView(APIView):
             return Response({
                 "success": True,
                 "message": "Product added successfully!",
-                "product_id": Product.id
+                "product_id": serializer.instance.id
             }, status=status.HTTP_201_CREATED)
         
         return Response({
@@ -83,3 +86,16 @@ class AddProductAPIView(APIView):
             "errors": serializer.errors
         }, status=status.HTTP_401_UNAUTHORIZED)
 
+
+# Category Get API
+class CategoryListView(ListAPIView):
+    queryset = Category.objects.all()
+    serializer_class = AddCategorySerializer
+
+
+# Brand Get API
+class BrandListView(ListAPIView):
+    serializer_class = AddBrandSerializer
+
+    def get_queryset(self):
+        return Brand.objects.filter(is_active=True).order_by('-created_date')

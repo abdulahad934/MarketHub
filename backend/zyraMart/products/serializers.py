@@ -21,7 +21,7 @@ class AddCategorySerializer(serializers.ModelSerializer):
     def validate_slug(self, value):
         slug = value.strip()
 
-        qs = Brand.objects.filter(slug=slug)
+        qs = Category.objects.filter(slug=slug)
         if self.instance:
             qs = qs.exclude(id=self.instance.id)
         if qs.exists():
