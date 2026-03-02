@@ -5,6 +5,7 @@ import AdminDashboard from './pages/AdminDashboard';
 import AddCategory from './pages/AddCategory';
 import AddBrand from './pages/AddBrand';
 import AllBrands from './pages/AllBrands';
+import AddProduct from './pages/AddProduct';
 function App() {
  
 
@@ -16,6 +17,7 @@ function App() {
     <Route path='/admin-dashboard' element={<AdminDashboard/>}></Route>
     <Route path='/add-category' element={<AddCategory/>}></Route>
     <Route path='/add-brand' element={<AddBrand/>}></Route>
+    <Route path='/add-product' element={<AddProduct/>}></Route>
     <Route path='/all-brands' element={<AllBrands/>}></Route>
    </Routes>
 

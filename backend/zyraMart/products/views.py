@@ -60,3 +60,26 @@ class AddBrandAPIView(APIView):
             "errors": serializer.errors
         }, status=status.HTTP_400_BAD_REQUEST)
 
+
+#product api create
+class AddProductAPIView(APIView):
+    @transaction.atomic
+
+    def post(self, request):
+        serializer = ProductSerializer(data = request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+
+            return Response({
+                "success": True,
+                "message": "Product added successfully!",
+                "product_id": Product.id
+            }, status=status.HTTP_201_CREATED)
+        
+        return Response({
+            "success":False,
+            "message": "faild added product",
+            "errors": serializer.errors
+        }, status=status.HTTP_401_UNAUTHORIZED)
+
