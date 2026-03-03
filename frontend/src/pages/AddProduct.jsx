@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import '../styles/addproduct.css'
+import AdminLayout from '../components/AdminLayout';
 
 const generateSlug = (text) =>
   text.toLowerCase().trim()
@@ -143,6 +144,7 @@ const AddProduct = () => {
 }
 
   return (
+    <AdminLayout>
     <div className="ap-page">
 
       {/* Header */}
@@ -377,6 +379,7 @@ const AddProduct = () => {
   style={{ top: '50%', transform: 'translateY(-50%)' }}
 />
     </div>
+    </AdminLayout>
   )
 }
 

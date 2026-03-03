@@ -5,6 +5,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../styles/allbrands.css';
 import * as XLSX from 'xlsx';
+import AdminLayout from '../components/AdminLayout';
 
 const brandColors = ['#f59e0b','#10b981','#3b82f6','#8b5cf6','#ec4899','#14b8a6','#f97316','#6366f1'];
 const getInitials  = (name = '') => name.slice(0, 2).toUpperCase();
@@ -250,6 +251,7 @@ const AllBrands = () => {
      RENDER
   ══════════════════════════════════════════════ */
   return (
+    <AdminLayout>
     <div className={`brands-root ${theme}`}>
       <div className="brands-wrapper">
 
@@ -510,6 +512,7 @@ const AllBrands = () => {
         toastStyle={{ background: isDark ? '#1e293b' : '#fff', border:`1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)'}`, fontFamily:"'DM Sans',sans-serif", fontSize:14, color: isDark ? '#e2e8f0' : '#1e293b' }}
       />
     </div>
+    </AdminLayout>
   );
 };
 
