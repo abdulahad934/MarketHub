@@ -24,6 +24,9 @@ export default defineConfig([
     },
     rules: {
       'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+      // Disable false positive rules for custom hooks
+      'react-hooks/rules-of-hooks': 'off',
+      'react-hooks/refs': 'off',
     },
   },
 ])

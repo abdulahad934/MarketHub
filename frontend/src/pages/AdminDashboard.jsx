@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import '../styles/admindashboard.css'
-import AdminLayout from '../components/AdminLayout'
 
 const METRICS = [
   { label: 'Total Revenue', value: '$48,295', change: '+12.5%', up: true,  color: '#ff6b35', bg: 'rgba(255,107,53,0.15)',  icon: '💰' },
@@ -34,7 +33,6 @@ const TOP_PRODUCTS = [
 const statusClass = s => ({ completed:'status-completed', pending:'status-pending', cancelled:'status-cancelled', processing:'status-processing' }[s] || 'status-processing')
 
 const AdminDashboard = () => (
-  <AdminLayout>
   <div className="dash-wrap">
 
     <div className="dash-page-header">
@@ -116,7 +114,6 @@ const AdminDashboard = () => (
     </div>
 
   </div>
-  </AdminLayout>
 )
 
 export default AdminDashboard

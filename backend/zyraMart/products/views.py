@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.db import transaction
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.generics import ListAPIView, RetrieveAPIView
@@ -103,3 +104,18 @@ class BrandListView(ListAPIView):
 
     def get_queryset(self):
         return Brand.objects.filter(is_active=True).order_by('-created_date')
+
+
+# Brand Delete API
+class BrandDetailView(APIView):
+    permission_classes = [IsAuthenticated, IsAdminUser]
+    authentication_classes = [JWTAuthentication]
+    
+    def delete(self, request, pk):
+        try:
+            brand = Brand.objects.get(pk=pk)
+            brand.is_active = False
+            brand.save()
+            return Response({"success": True, "message": "Brand deleted successfully!"}, status=status.HTTP_200_OK)
+        except Brand.DoesNotExist:
+            return Response({"success": False, "message": "Brand not found!"}, status=status.HTTP_404_NOT_FOUND)

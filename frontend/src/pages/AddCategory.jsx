@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import '../styles/addcategory.css'
-import AdminLayout from '../components/AdminLayout'
 
 const generateSlug = (text) =>
   text.toLowerCase().trim()
@@ -87,7 +86,6 @@ const AddCategory = () => {
   }
 
   return (
-    <AdminLayout>
     <div className="ac-page">
 
       {/* Header */}
@@ -198,7 +196,6 @@ const AddCategory = () => {
 
       <ToastContainer position="top-right" autoClose={2000} theme="dark" />
     </div>
-    </AdminLayout>
   )
 }
 

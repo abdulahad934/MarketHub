@@ -9,5 +9,6 @@ urlpatterns = [
     path('add-product/', AddProductAPIView.as_view()),
     path('categories/', CategoryListView.as_view()),
     path('brands/', BrandListView.as_view()),
+    path('brands/<int:pk>/', BrandDetailView.as_view()),
     
 ]
