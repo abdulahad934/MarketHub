@@ -1,4 +1,4 @@
-import { getToken } from '../utils/brandUtils';
+import { getToken } from "../utils/brandUtils";
 
 const BASE = 'http://127.0.0.1:8080/api/products/brands';
 
