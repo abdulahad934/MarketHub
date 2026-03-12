@@ -75,6 +75,8 @@ window.fetch = async (url, options = {}) => {
 };
 
 // Helper function to get auth header
+export const getToken = () => localStorage.getItem('accessToken');
+
 export const getAuthHeader = () => {
   const token = localStorage.getItem('accessToken');
   return token ? { Authorization: `Bearer ${token}` } : {};

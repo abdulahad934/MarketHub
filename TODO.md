@@ -1,9 +1,17 @@
-# Django Backend Fix - TODO Steps
+# AllCategories Fix Progress
 
-## Approved Plan Breakdown:
-1. [x] Edit `backend/requirements.txt` to add `djangorestframework-simplejwt==5.3.1`
-2. [x] Install dependencies
-3. [ ] Run migrations: `python manage.py makemigrations && python manage.py migrate`
-4. [ ] Create superuser if needed: `python manage.py createsuperuser`
-5. [ ] Start server: `python manage.py runserver 8080`
-6. [ ] Verify frontend/backend integration (CORS already enabled)
+## Completed:
+- [x] Step 1: Update frontend/src/services/categoryService.js with category API service
+- [x] Step 2: Implement frontend/src/hooks/useCategories.jsx hook
+- [x] Step 3: Build full frontend/src/pages/AllCategories.jsx table page
+- [x] Step 4: Test navigation and functionality (navigate to /all-categories via sidebar)
+
+
+
+
+- [ ] Step 2: Implement frontend/src/hooks/useCategories.jsx hook
+- [ ] Step 3: Build full frontend/src/pages/AllCategories.jsx table page
+- [ ] Step 4: Test navigation and functionality
+
+## Completed:
+
