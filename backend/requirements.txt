@@ -26,3 +26,4 @@ sqlparse==0.5.5
 threadpoolctl==3.6.0
 tzdata==2025.2
 virtualenv==20.36.1
+djangorestframework-simplejwt==5.3.1
